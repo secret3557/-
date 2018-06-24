@@ -1,0 +1,321 @@
+#include<iostream>
+#include<windows.h>
+#include<ctime>
+using namespace std;
+const int edgeW=132;
+const int edgeH=32;
+
+const int startX=28;
+const int startY=10;
+const int space=16;
+
+void Gotoxy(int x, int y)
+{
+	COORD coord;
+	coord.X = x;
+	coord.Y = y;
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
+void drawEdge(){
+	//╔═║╗╚╝
+		for (int i = 2; i < edgeH-1; i++)
+		{
+			Gotoxy(2, i);
+			cout << "║";
+			Gotoxy(edgeW-2, i);
+			cout << "║";
+		}
+		
+		for (int i = 2; i <= edgeW-2; i+=2)
+		{
+			Gotoxy(i, 1);
+			if(i==2) {cout<<"╔";}
+			if(i==edgeW-2) {cout<<"╗";}
+			else {cout << "═";}
+			Gotoxy(i, edgeH-1);
+			if(i==2) {cout<<"╚";}
+			if(i>=edgeW-2) {cout<<"╝"<<endl;}
+			else {cout << "═";}
+		}
+		for (int i = 0; i < edgeH; i++)
+		{
+			Gotoxy(0, i);
+			cout << "║";
+			Gotoxy(edgeW, i);
+			cout << "║";
+		}
+		
+		for (int i = 0; i <= edgeW; i+=2)
+		{
+			Gotoxy(i, 0);
+			if(i==0) {cout<<"╔";}
+			if(i==edgeW) {cout<<"╗";}
+			else {cout << "═";}
+			Gotoxy(i, edgeH);
+			if(i==0) {cout<<"╚";}
+			if(i>=edgeW) {cout<<"╝"<<endl;}
+			else {cout << "═";}
+		}
+		
+}
+
+void drawH(int x,int y){
+	Gotoxy(x,y++);
+	cout<<"    _/    _/  ";Gotoxy(x,y++);
+	cout<<"   _/    _/   ";Gotoxy(x,y++);
+	cout<<"  _/_/_/_/    ";Gotoxy(x,y++);
+	cout<<" _/    _/     ";Gotoxy(x,y++);
+	cout<<"_/    _/      ";Gotoxy(x,y++);
+}
+void drawE(int x,int y){
+	Gotoxy(x,y++);
+	cout<<"             ";Gotoxy(x,y++);
+	cout<<"     _/_/    ";Gotoxy(x,y++);
+	cout<<"  _/_/_/_/   ";Gotoxy(x,y++);
+	cout<<" _/          ";Gotoxy(x,y++);
+	cout<<"  _/_/_/     ";Gotoxy(x,y++);
+}
+void drawL(int x,int y){
+	Gotoxy(x,y++);
+	cout<<"      _/   ";Gotoxy(x,y++);
+	cout<<"     _/    ";Gotoxy(x,y++);
+	cout<<"    _/     ";Gotoxy(x,y++);
+	cout<<"   _/      ";Gotoxy(x,y++);
+	cout<<"  _/       ";Gotoxy(x,y++);
+}
+void drawO(int x,int y){
+	Gotoxy(x,y++);
+	cout<<"             ";Gotoxy(x,y++);
+	cout<<"      _/_/   ";Gotoxy(x,y++);
+	cout<<"   _/    _/  ";Gotoxy(x,y++);
+	cout<<"  _/    _/   ";Gotoxy(x,y++);
+	cout<<"   _/_/      ";Gotoxy(x,y++);
+}
+void drawW(int x,int y){
+	Gotoxy(x,y++);
+	cout<<"  _/          _/";Gotoxy(x,y++);
+	cout<<" _/          _/ ";Gotoxy(x,y++);
+	cout<<"_/    _/    _/  ";Gotoxy(x,y++);
+	cout<<" _/  _/  _/     ";Gotoxy(x,y++);
+	cout<<"  _/  _/        ";Gotoxy(x,y++);
+}
+void drawR(int x,int y){
+	Gotoxy(x,y++);
+	cout<<"             ";Gotoxy(x,y++);
+	cout<<"    _/  _/_/ ";Gotoxy(x,y++);
+	cout<<"   _/_/      ";Gotoxy(x,y++);
+	cout<<"  _/         ";Gotoxy(x,y++);
+	cout<<" _/          ";Gotoxy(x,y++);
+}
+void drawD(int x,int y){
+	Gotoxy(x,y++);
+	cout<<"           _/  ";Gotoxy(x,y++);
+	cout<<"      _/_/_/   ";Gotoxy(x,y++);
+	cout<<"   _/    _/    ";Gotoxy(x,y++);
+	cout<<"  _/    _/     ";Gotoxy(x,y++);
+	cout<<"   _/_/_/      ";Gotoxy(x,y++);
+}
+void drawNormal(){
+	
+	drawH(startX,startY);
+	drawE(startX+space,startY);
+	drawL(startX+space*2,startY);
+	drawL(startX+space*3,startY);
+	drawO(startX+space*4,startY);
+	
+	drawW(startX,startY+10);
+	drawO(startX+space,startY+10);
+	drawR(startX+space*2,startY+10);
+	drawL(startX+space*3,startY+10);
+	drawD(startX+space*4,startY+10);
+}
+
+void SdrawH(){
+	int x=edgeW-17;
+	int y=10;
+	while(x>=startX){
+		Gotoxy(x,y);
+		cout<<"    _/    _/  ";Gotoxy(x,y+1);
+		cout<<"   _/    _/   ";Gotoxy(x,y+2);
+		cout<<"  _/_/_/_/    ";Gotoxy(x,y+3);
+		cout<<" _/    _/     ";Gotoxy(x,y+4);
+		cout<<"_/    _/      ";Gotoxy(x,y+5);
+		x-=1;
+		Sleep(10);
+	}
+}
+void SdrawE(){
+	int y=2;
+	while(y<=startY){
+		Gotoxy(startX+space,y);
+		cout<<"           ";Gotoxy(startX+space,y+1);
+		cout<<"     _/_/  ";Gotoxy(startX+space,y+2);
+		cout<<"  _/_/_/_/ ";Gotoxy(startX+space,y+3);
+		cout<<" _/        ";Gotoxy(startX+space,y+4);
+		cout<<"  _/_/_/   ";Gotoxy(startX+space,y+5);
+		y++;
+		Sleep(40);
+	}
+}
+void SdrawL(){
+	int y=25;
+	while(y>=startY){
+		Gotoxy(startX+space*2,y);
+		cout<<"      _/ ";Gotoxy(startX+space*2,y+1);
+		cout<<"     _/  ";Gotoxy(startX+space*2,y+2);
+		cout<<"    _/   ";Gotoxy(startX+space*2,y+3);
+		cout<<"   _/    ";Gotoxy(startX+space*2,y+4);
+		cout<<"  _/     ";Gotoxy(startX+space*2,y+5);
+		cout<<"         ";
+		y--;
+		Sleep(40);
+	}
+}
+void SdrawL(int x){
+	int y=25;
+	while(y>=startY){
+		Gotoxy(startX+space*3,y);
+		cout<<"      _/   ";Gotoxy(startX+space*3,y+1);
+		cout<<"     _/    ";Gotoxy(startX+space*3,y+2);
+		cout<<"    _/     ";Gotoxy(startX+space*3,y+3);
+		cout<<"   _/      ";Gotoxy(startX+space*3,y+4);
+		cout<<"  _/       ";Gotoxy(startX+space*3,y+5);
+		cout<<"           ";
+		y--;
+		Sleep(40);
+	}
+}
+void SdrawO(){
+	int x=edgeW-17;
+	int y=10;
+	while(x>=startX+space*4){
+		Gotoxy(x,y);
+		cout<<"             ";Gotoxy(x,y+1);
+		cout<<"      _/_/   ";Gotoxy(x,y+2);
+		cout<<"   _/    _/  ";Gotoxy(x,y+3);
+		cout<<"  _/    _/   ";Gotoxy(x,y+4);
+		cout<<"   _/_/      ";Gotoxy(x,y+5);
+		x--;
+		Sleep(10);
+	}
+}
+void SdrawW(){
+	int x=startX;
+	int y=startY+10;
+	Gotoxy(x,y);
+	cout<<"  _/          _/";Gotoxy(x,y+1);
+	Sleep(100);
+	cout<<" _/          _/ ";Gotoxy(x,y+2);
+	Sleep(100);
+	cout<<"_/    _/    _/  ";Gotoxy(x,y+3);
+	Sleep(100);
+	cout<<" _/  _/  _/     ";Gotoxy(x,y+4);
+	Sleep(100);
+	cout<<"  _/  _/        ";Gotoxy(x,y+5);
+}
+void SdrawO(int z){
+	int x=startX+space;
+	int y=startY+10;
+	Gotoxy(x,y);
+	cout<<"             ";Gotoxy(x,y+1);
+	Sleep(100);
+	cout<<"      _/_/   ";Gotoxy(x,y+2);
+	Sleep(100);
+	cout<<"   _/    _/  ";Gotoxy(x,y+3);
+	Sleep(100);
+	cout<<"  _/    _/   ";Gotoxy(x,y+4);
+	Sleep(100);
+	cout<<"   _/_/      ";Gotoxy(x,y+5);
+}
+void SdrawR(){
+	int x=startX+space*2;
+	int y=startY+10;
+	Gotoxy(x,y++);
+	cout<<"             ";Gotoxy(x,y++);
+	Sleep(100);
+	cout<<"    _/  _/_/ ";Gotoxy(x,y++);
+	Sleep(100);
+	cout<<"   _/_/      ";Gotoxy(x,y++);
+	Sleep(100);
+	cout<<"  _/         ";Gotoxy(x,y++);
+	Sleep(100);
+	cout<<" _/          ";Gotoxy(x,y++);
+}
+void SdrawL(int z,int j){
+	int x=startX+space*3;
+	int y=startY+10;
+	Gotoxy(x,y++);
+	cout<<"      _/   ";Gotoxy(x,y++);
+	Sleep(100);
+	cout<<"     _/    ";Gotoxy(x,y++);
+	Sleep(100);
+	cout<<"    _/     ";Gotoxy(x,y++);
+	Sleep(100);
+	cout<<"   _/      ";Gotoxy(x,y++);
+	Sleep(100);
+	cout<<"  _/       ";Gotoxy(x,y++);
+}
+void SdrawD(){
+	int x=startX+space*4;
+	int y=startY+10;
+	Gotoxy(x,y++);
+	cout<<"           _/  ";Gotoxy(x,y++);
+	Sleep(100);
+	cout<<"      _/_/_/   ";Gotoxy(x,y++);
+	Sleep(100);
+	cout<<"   _/    _/    ";Gotoxy(x,y++);
+	Sleep(100);
+	cout<<"  _/    _/     ";Gotoxy(x,y++);
+	Sleep(100);
+	cout<<"   _/_/_/      ";Gotoxy(x,y++);
+}
+
+void move(){
+	SdrawH();
+	Sleep(100);
+	SdrawE();
+	Sleep(100);
+	SdrawL();
+	Sleep(100);
+	SdrawL(1);
+	Sleep(100);
+	SdrawO();
+	Sleep(100);
+
+	SdrawW();
+	Sleep(100);
+	SdrawO(1);
+	Sleep(100);
+	SdrawR();
+	Sleep(100);
+	SdrawL(1,1);
+	Sleep(100);
+	SdrawD();
+	Sleep(100);
+}
+
+void blink(){
+	int x=255;
+	while(x){
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE)
+			,FOREGROUND_INTENSITY|x);
+		drawNormal();
+		if(x%10==0) drawEdge();
+		Sleep(50);
+		x--;
+	}
+}
+
+void main(){
+	
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),FOREGROUND_INTENSITY|5);
+	drawEdge();
+	move();
+	blink();
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),FOREGROUND_INTENSITY);
+	
+	drawEdge();
+	drawNormal();
+
+	system("pause>nul");
+}
